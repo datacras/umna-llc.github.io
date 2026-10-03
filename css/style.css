@@ -294,12 +294,12 @@ button {
 
 .custom_menu li a{
     float: left;
-    font-size: 16px;
+    font-size: 15px;
     color: #ffffff;
-    padding: 7px 20px 7px 20px;
+    padding: 7px 12px 7px 12px;
     text-transform: uppercase;
     background-color: transparent;
-    margin: 0px 7px;
+    margin: 0px 3px;
     border-radius: 5px;
 }
 

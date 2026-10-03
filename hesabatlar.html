@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="az">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>UMNA LLC - Hesabatlıq</title>
+      <meta name="keywords" content="UMNA LLC, hesabat, vergi hesabatı">
+      <meta name="description" content="UMNA LLC vergi hesabatları">
+      <meta name="author" content="UMNA LLC">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+      <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png" />
+      <link rel="icon" type="image/png" sizes="512x512" href="images/android-chrome-512x512.png" />
+      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+      <meta name="theme-color" content="#ffffff" />
+      <!-- fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Sen:400,700,800&display=swap" rel="stylesheet">
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <style>
+         .report-filter-btn {
+            margin: 0 4px 8px 4px;
+            border-radius: 20px;
+            padding: 6px 22px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid #1a73e8;
+            color: #1a73e8;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+         }
+         .report-filter-btn.active,
+         .report-filter-btn:hover {
+            background: #1a73e8;
+            color: #fff;
+         }
+         .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+         }
+         .report-table thead tr {
+            background: #1a73e8;
+            color: #fff;
+         }
+         .report-table thead th {
+            padding: 12px 16px;
+            font-weight: 600;
+            text-align: left;
+         }
+         .report-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: background 0.15s;
+         }
+         .report-table tbody tr:hover {
+            background: #f0f6ff;
+         }
+         .report-table tbody td {
+            padding: 12px 16px;
+            color: #444;
+            vertical-align: middle;
+         }
+         .badge-vergi {
+            background: #e8f0fe;
+            color: #1a73e8;
+            border-radius: 12px;
+            padding: 3px 12px;
+            font-size: 12px;
+            font-weight: 600;
+         }
+         .badge-illik {
+            background: #fce8e6;
+            color: #d93025;
+            border-radius: 12px;
+            padding: 3px 12px;
+            font-size: 12px;
+            font-weight: 600;
+         }
+         .badge-rubuq {
+            background: #e6f4ea;
+            color: #188038;
+            border-radius: 12px;
+            padding: 3px 12px;
+            font-size: 12px;
+            font-weight: 600;
+         }
+         .pdf-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: 6px;
+            background: #1a73e8;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+         }
+         .pdf-download-btn:hover {
+            background: #1558b0;
+            color: #fff;
+            text-decoration: none;
+         }
+         .report-section-wrap {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            padding: 30px;
+            margin-top: 20px;
+         }
+         .report-year-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+         }
+         .report-year-header h4 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a73e8;
+            margin: 0;
+         }
+         .no-reports {
+            text-align: center;
+            color: #888;
+            padding: 40px 0;
+            font-size: 15px;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="header_section">
+         <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+               <a class="navbar-brand" href="index.html"><img src="images/umna.png"></a>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+               </button>
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ml-auto">
+                     <li class="nav-item">
+                        <a class="nav-link" href="index.html">Ana Səhifə</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="hosting.html">Əhatə dairəmiz</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="domain.html">Tariflərimiz</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="services.html">Xidmətlərimiz</a>
+                     </li>
+                     <li class="nav-item active">
+                        <a class="nav-link" href="hesabatlar.html">Hesabatlıq</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="speedtest.html">Sürət Testi</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Əlaqə</a>
+                     </li>
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0">
+                  </form>
+               </div>
+            </nav>
+            <div class="custom_bg">
+               <div class="custom_menu">
+                  <ul>
+                     <li><a href="index.html">Ana Səhifə</a></li>
+                     <li><a href="hosting.html">Əhatə dairəmiz</a></li>
+                     <li><a href="domain.html">Tariflərimiz</a></li>
+                     <li><a href="services.html">Xidmətlərimiz</a></li>
+                     <li class="active"><a href="hesabatlar.html">Hesabatlıq</a></li>
+                     <li><a href="contact.html">Əlaqə</a></li>
+                  </ul>
+               </div>
+               <form class="form-inline my-2 my-lg-0">
+                  <div class="search_btn">
+                     <li>
+                        <a href="https://e-complaint.icta.az/" target="_blank">
+                           <i class="fa fa-envelope" aria-hidden="true"></i> E-şikayət
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://user.umna.az" target="_blank">
+                           <i class="fa fa-envelope" aria-hidden="true"></i> Şəxsi Kabinet
+                        </a>
+                     </li>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      <!-- header section end -->
+
+      <!-- reports section start -->
+      <div class="services_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <h1 class="services_taital">Hesabatlıq</h1>
+                  <p class="services_text">UMNA LLC-nin vergi hesabatları ictimaiyyətə açıq şəkildə təqdim olunur. Aşağıdan müvafiq ili seçərək hesabatları yükləyə bilərsiniz.</p>
+               </div>
+            </div>
+
+            <div class="report-section-wrap">
+               <!-- Year filter -->
+               <div class="mb-3">
+                  <button class="report-filter-btn active" onclick="filterYear('all', this)">Hamısı</button>
+                  <button class="report-filter-btn" onclick="filterYear('2025', this)">2025</button>
+                  <button class="report-filter-btn" onclick="filterYear('2024', this)">2024</button>
+               </div>
+
+               <!-- Reports table -->
+               <table class="report-table" id="reportTable">
+                  <thead>
+                     <tr>
+                        <th style="width:40%">Hesabatın adı</th>
+                        <th style="width:15%">Tarix</th>
+                        <th style="width:15%">Növ</th>
+                        <th style="width:15%">İl</th>
+                        <th style="width:15%">Yüklə</th>
+                     </tr>
+                  </thead>
+                  <tbody id="reportBody">
+                     <!-- 2025 -->
+                     <tr data-year="2025">
+                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — I rüb 2025</td>
+                        <td>01.04.2025</td>
+                        <td><span class="badge-rubuq">Rüblük</span></td>
+                        <td>2025</td>
+                        <td><a href="reports/vergi-beyanname-1rubu-2025.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
+                     </tr>
+                     <!-- 2024 -->
+                     <tr data-year="2024">
+                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>İllik vergi hesabatı — 2024</td>
+                        <td>31.03.2024</td>
+                        <td><span class="badge-illik">İllik</span></td>
+                        <td>2024</td>
+                        <td><a href="reports/vergi-hesabat-illik-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
+                     </tr>
+                     <tr data-year="2024">
+                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — IV rüb 2024</td>
+                        <td>15.01.2025</td>
+                        <td><span class="badge-rubuq">Rüblük</span></td>
+                        <td>2024</td>
+                        <td><a href="reports/vergi-beyanname-4rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
+                     </tr>
+                     <tr data-year="2024">
+                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — III rüb 2024</td>
+                        <td>15.10.2024</td>
+                        <td><span class="badge-rubuq">Rüblük</span></td>
+                        <td>2024</td>
+                        <td><a href="reports/vergi-beyanname-3rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
+                     </tr>
+                     <tr data-year="2024">
+                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — II rüb 2024</td>
+                        <td>15.07.2024</td>
+                        <td><span class="badge-rubuq">Rüblük</span></td>
+                        <td>2024</td>
+                        <td><a href="reports/vergi-beyanname-2rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
+                     </tr>
+                     <tr data-year="2024">
+                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — I rüb 2024</td>
+                        <td>15.04.2024</td>
+                        <td><span class="badge-rubuq">Rüblük</span></td>
+                        <td>2024</td>
+                        <td><a href="reports/vergi-beyanname-1rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+
+               <div id="noResults" class="no-reports" style="display:none;">
+                  <i class="fa fa-folder-open-o" style="font-size:36px;display:block;margin-bottom:10px;"></i>
+                  Bu il üçün hesabat mövcud deyil.
+               </div>
+            </div>
+
+         </div>
+      </div>
+      <!-- reports section end -->
+
+      <!-- footer section start -->
+      <div class="footer_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-4">
+                  <h3 class="footer_text">Faydalı keçidlər</h3>
+                  <div class="footer_menu">
+                     <ul>
+                        <li><a href="index.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Ana Səhifə</a></li>
+                        <li><a href="hosting.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Əhatə dairəmiz</a></li>
+                        <li><a href="domain.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Tariflərimiz</a></li>
+                        <li><a href="services.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Xidmətlərimiz</a></li>
+                        <li class="active"><a href="hesabatlar.html"><span class="angle_icon active"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Hesabatlıq</a></li>
+                        <li><a href="contact.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Bizimlə əlaqə</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <h3 class="footer_text">Ünvan</h3>
+                  <div class="location_text">
+                     <ul>
+                        <li>
+                           <a href="#">
+                           <span class="padding_left_10"><i class="fa fa-map-marker" aria-hidden="true"></i></span>Goranboy rayonu, Dəliməmmədli şəhəri <br>Naftalan şəhəri H.Əliyev küçəsi 15</a>
+                        </li>
+                        <li>
+                           <a href="tel:+994706510022">
+                              <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>+994 70 651 00 22
+                           </a>
+                           <br>
+                           <a href="tel:+994706610022">
+                              <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>+994 70 661 00 22
+                           </a>
+                        </li>
+                        <li>
+                           <a href="mailto:info@umna.az">
+                           <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>info@umna.az
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-sm-4">
+                  <div class="footer_main">
+                     <h3 class="footer_text">Sosial</h3>
+                     <p class="dummy_text">Bizi sosial şəbəkələrdə izləyin.</p>
+                     <div class="social_icon">
+                        <ul>
+                           <li><a href="https://facebook.com/UMNALLC"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                           <li><a href="https://x.com/UMNALLC"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                           <li><a href="https://instagram.com/UMNALLC"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- footer section end -->
+      <!-- copyright section start -->
+      <div class="copyright_section">
+         <div class="container">
+            <p class="copyright_text">2025 All Rights Reserved. Design by <a href="https://adrichal.org">Adrichal</a>.</p>
+         </div>
+      </div>
+      <!-- copyright section end -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="js/plugin.js"></script>
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <script>
+         function filterYear(year, btn) {
+            document.querySelectorAll('.report-filter-btn').forEach(function(b) {
+               b.classList.remove('active');
+            });
+            btn.classList.add('active');
+
+            var rows = document.querySelectorAll('#reportBody tr');
+            var visible = 0;
+            rows.forEach(function(row) {
+               if (year === 'all' || row.getAttribute('data-year') === year) {
+                  row.style.display = '';
+                  visible++;
+               } else {
+                  row.style.display = 'none';
+               }
+            });
+            document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+         }
+      </script>
+   </body>
+</html>
