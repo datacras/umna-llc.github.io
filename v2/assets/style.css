@@ -86,13 +86,35 @@ h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;line-height:1.15}
 .feat p{color:var(--mut);margin-top:6px}
 
 /* coverage */
-.coverage{position:relative;color:#fff;min-height:620px;display:flex;align-items:flex-end;padding:0;
-  background:#00001a url(map.jpg) 58% 0/cover no-repeat}
-.coverage::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,26,.75) 0,rgba(0,0,26,.25) 45%,transparent 70%)}
-.cov-in{position:relative;z-index:1;padding-top:96px;padding-bottom:72px}
-.cov-in .sub{color:rgba(255,255,255,.85);max-width:460px}
+.coverage{position:relative;min-height:640px;padding:0;display:flex;align-items:center;background:#00001a;color:#fff;overflow:hidden}
+.cov-map{position:absolute;inset:0;background:#0a1030}
+.cov-map .leaflet-tile-pane{filter:brightness(.8) saturate(.95)}
+.coverage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(0,0,26,.85) 0,rgba(0,0,26,.35) 40%,transparent 65%)}
+.cov-in{position:relative;z-index:500;pointer-events:none;padding-top:72px;padding-bottom:72px}
+.cov-card{max-width:440px;pointer-events:auto}
+.cov-card .sub{color:rgba(255,255,255,.85)}
 .ticks{list-style:none;padding:0;margin:22px 0 28px;display:grid;gap:10px;font-weight:600}
-.ticks li::before{content:"●";color:var(--red);margin-right:10px;font-size:12px}
+.ticks li::before{content:"";display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:12px;background:currentColor}
+
+.ticks li::before{background:#3fe0a0;box-shadow:0 0 12px #3fe0a0}
+
+/* animated borders (MegaSec-style: teal territory, violet border, light-blue arc) */
+.area-line{stroke:#a78bfa;fill:#3fe0a0;fill-opacity:0;stroke-opacity:0;stroke-width:3;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(167,139,250,.9));transition:fill-opacity 1.6s ease,stroke-opacity .4s ease}
+.area-line.on{fill-opacity:.22;stroke-opacity:1}
+.area-line.flow{stroke-dasharray:14 10;animation:march 1.4s linear infinite,pulse 3.2s ease-in-out infinite}
+@keyframes march{to{stroke-dashoffset:-48}}
+@keyframes pulse{50%{fill-opacity:.34}}
+.arc-line{stroke:#9fd6ff;fill:none;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(159,214,255,.9))}
+.arc-dot{stroke:#3fe0a0;fill:#3fe0a0;fill-opacity:1;filter:drop-shadow(0 0 8px #3fe0a0)}
+.pin,.pin-label-wrap{background:none;border:0;opacity:0;transform:translateY(-8px);transition:opacity .6s ease,transform .6s ease}
+.pin.show,.pin-label-wrap.show{opacity:1;transform:none}
+.pin svg{display:block;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.pin-ring{position:absolute;left:5px;bottom:-2px;width:24px;height:10px;border:2px solid #3fe0a0;border-radius:50%;animation:ring 2s ease-out infinite}
+@keyframes ring{from{transform:scale(.5);opacity:1}to{transform:scale(2);opacity:0}}
+.pin-label{display:inline-block;white-space:nowrap;padding:5px 12px;border-radius:6px;background:rgba(14,18,32,.88);color:#fff;font:600 14px system-ui,sans-serif;border:1px solid rgba(255,255,255,.18)}
+.cov-replay{margin-top:14px;background:none;border:0;color:rgba(255,255,255,.75);font:600 14px inherit;cursor:pointer;padding:6px 0}
+.cov-replay:hover{color:#fff}
+.leaflet-container{font-family:inherit;background:#0a1030}
 
 /* account */
 .card-wide{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:36px;border:1px solid var(--line);border-radius:var(--r);flex-wrap:wrap}
@@ -123,6 +145,6 @@ h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;line-height:1.15}
   .sec{padding:52px 0}
   .check .btn{width:100%}
 }
-@media (max-width:860px){.coverage{min-height:560px;background-position:60% 0;background-size:auto 60%}.coverage::after{background:linear-gradient(180deg,transparent 25%,#00001a 60%)}}
+@media (max-width:860px){.coverage{min-height:0;display:block}.cov-map{position:relative;height:340px}.coverage::after{display:none}.cov-in{padding-top:28px;pointer-events:auto}.cov-card{max-width:none}}
 @media (max-width:520px){.feats{grid-template-columns:1fr}.hero-stats{gap:24px}}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}.area-line,.pin-ring{animation:none!important}}

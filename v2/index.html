@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UMNA – Fiber internet Goranboy və Naftalanda</title>
-  <meta name="description" content="UMNA LLC: Goranboy və Naftalanda fiber-optik internet. Pulsuz qoşulma, pulsuz Wi-Fi ruter, 24/7 dəstək.">
+  <title>UMNA – Fiber internet Goranboy və Mingəçevirdə</title>
+  <meta name="description" content="UMNA LLC: Goranboy və Mingəçevirdə fiber-optik internet. Pulsuz qoşulma, pulsuz Wi-Fi ruter, 24/7 dəstək.">
   <meta name="theme-color" content="#272b91">
   <link rel="icon" href="../images/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -118,11 +119,18 @@
 
   <!-- COVERAGE -->
   <section class="sec coverage" id="ehate">
+    <div class="cov-map" id="covMap" role="img" aria-label="Goranboy rayonu və Mingəçevir şəhərinin sərhədləri xəritədə"></div>
     <div class="wrap cov-in">
-      <h2>Əhatə dairəsi</h2>
-      <p class="sub">Goranboy rayonu və Naftalan şəhərini tam əhatə edirik.</p>
-      <ul class="ticks"><li>Goranboy rayonu</li><li>Dəliməmmədli şəhəri</li><li>Naftalan şəhəri</li></ul>
-      <a class="btn" href="#yoxla">Ünvanımı yoxla</a>
+      <div class="cov-card">
+        <h2>Əhatə dairəsi</h2>
+        <p class="sub">Goranboy rayonu və Mingəçevir şəhərində xidmət göstəririk.</p>
+        <ul class="ticks">
+          <li>Goranboy rayonu</li>
+          <li>Mingəçevir şəhəri</li>
+        </ul>
+        <a class="btn" href="#yoxla">Ünvanımı yoxla</a><br>
+        <button class="cov-replay" id="covReplay" type="button">↻ Animasiyanı təkrarla</button>
+      </div>
     </div>
   </section>
 
@@ -171,6 +179,8 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="assets/app.js"></script>
+<script src="assets/map.js"></script>
 </body>
 </html>

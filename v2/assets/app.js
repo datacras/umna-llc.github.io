@@ -12,7 +12,7 @@
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   // Əhatə dairəsi: Goranboy rayonu, Dəliməmmədli, Naftalan
-  var AREAS = ['goranboy', 'dəliməmmədli', 'delimemmedli', 'dalimammadli', 'naftalan'];
+  var AREAS = ['goranboy', 'dəliməmmədli', 'delimemmedli', 'dalimammadli', 'naftalan', 'mingəçevir', 'mingecevir'];
   function norm(s) {
     return s.toLocaleLowerCase('az').replace(/ı/g, 'i').replace(/ə/g, 'e').replace(/ö/g, 'o')
       .replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ç/g, 'c').replace(/ğ/g, 'g');
@@ -32,7 +32,7 @@
       out.innerHTML = '✓ Ünvanınız əhatə dairəmizdədir. <a href="#elaqe" style="color:inherit">Nömrənizi yazın, zəng edək →</a>';
     } else {
       out.classList.add('no');
-      out.innerHTML = 'Hazırda yalnız Goranboy rayonu və Naftalan şəhərində xidmət göstəririk. Yenə də <a href="#elaqe" style="color:inherit">bizə yazın</a>.';
+      out.innerHTML = 'Hazırda yalnız Goranboy rayonu və Mingəçevir şəhərində xidmət göstəririk. Yenə də <a href="#elaqe" style="color:inherit">bizə yazın</a>.';
     }
   });
 
