@@ -32,7 +32,7 @@
       out.innerHTML = '✓ Ünvanınız əhatə dairəmizdədir. <a href="#elaqe" style="color:inherit">Nömrənizi yazın, zəng edək →</a>';
     } else {
       out.classList.add('no');
-      out.innerHTML = 'Hazırda yalnız Goranboy rayonu və Mingəçevir şəhərində xidmət göstəririk. Yenə də <a href="#elaqe" style="color:inherit">bizə yazın</a>.';
+      out.innerHTML = 'Hazırda yalnız Goranboy rayonu, Naftalan və Mingəçevir şəhərlərində xidmət göstəririk. Yenə də <a href="#elaqe" style="color:inherit">bizə yazın</a>.';
     }
   });
 

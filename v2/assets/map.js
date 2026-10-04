@@ -8,6 +8,7 @@
 
   var PLACES = {
     gor: { key: 'Goranboy',   name: 'Goranboy',   pin: [46.7894, 40.6100] },   // [lng, lat]
+    nft: { key: 'Naftalan',   name: 'Naftalan',   pin: [46.8211, 40.5064] },
     min: { key: 'Mingəçevir', name: 'Mingəçevir', pin: [47.0496, 40.7703] }
   };
   var VIOLET = '#a78bfa', TEAL = '#3fe0a0', ARC = '#9fd6ff';
@@ -52,8 +53,12 @@
 
   var geo = null, ready = false, played = false, visible = false;
   var timers = [], raf = 0, markers = {};
-  var state = { gor: { draw: 0, fill: 0, on: false }, min: { draw: 0, fill: 0, on: false }, arc: 0 };
-  var rings = {}, arcPts = [];
+  var AREAS = ['gor', 'nft', 'min'];
+  var ARCS = [['gor', 'nft'], ['gor', 'min']];   // Goranboy is the hub
+  var NAMES = { 'Goranboy': 'gor', 'Naftalan': 'nft', 'Mingəçevir': 'min' };
+  var state = {};
+  AREAS.forEach(function (k) { state[k] = { fill: 0, on: false }; });
+  var rings = {}, arcPtsList = [], arcDone = [];
 
   function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
   function empty() { return { type: 'FeatureCollection', features: [] }; }
@@ -91,17 +96,17 @@
 
   // dashed "marching" border frames (MapLibre dash-sequence technique)
   var DASH = [[0,4,3],[.5,4,2.5],[1,4,2],[1.5,4,1.5],[2,4,1],[2.5,4,.5],[3,4,0],[0,.5,3,3.5],[0,1,3,3],[0,1.5,3,2.5],[0,2,3,2],[0,2.5,3,1.5],[0,3,3,1],[0,3.5,3,.5]];
-  var dashStep = -1, dashAt = 0, marching = { gor: false, min: false };
+  var dashStep = -1, dashAt = 0, marching = { gor: false, nft: false, min: false };
 
   function tick(now) {
-    ['gor', 'min'].forEach(function (k) {
+    AREAS.forEach(function (k) {
       var s = state[k];
       if (!s.on) return;
       map.setPaintProperty('fill-' + k, 'fill-opacity', s.fill * (0.22 + (reduce ? 0 : 0.1 * Math.sin(now / 1100))));
     });
     if (!reduce && now - dashAt > 55) {
       dashAt = now; dashStep = (dashStep + 1) % DASH.length;
-      ['gor', 'min'].forEach(function (k) { if (marching[k]) map.setPaintProperty('line-' + k, 'line-dasharray', DASH[dashStep]); });
+      AREAS.forEach(function (k) { if (marching[k]) map.setPaintProperty('line-' + k, 'line-dasharray', DASH[dashStep]); });
     }
     raf = requestAnimationFrame(tick);
   }
@@ -126,20 +131,25 @@
   }
   function setPin(k, on) { var e = markers[k] && markers[k].getElement(); if (e) e.classList.toggle('show', on); }
 
-  function showArc() {
-    var a = map.getSource('arc'), g = map.getSource('arc-glow'), d = map.getSource('dot');
-    anim(1700, function (f) {
-      var c = partial(arcPts, f);
-      a.setData(line(c)); g.setData(line(c));
+  function multi(lines) {
+    return { type: 'FeatureCollection', features: lines.filter(function (c) { return c.length > 1; }).map(function (c) { return { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: c } }; }) };
+  }
+  function showArc(i) {
+    var a = map.getSource('arc'), g = map.getSource('arc-glow'), d = map.getSource('dot'), pts = arcPtsList[i];
+    anim(1500, function (f) {
+      var c = partial(pts, f), all = arcDone.concat([c]);
+      a.setData(multi(all)); g.setData(multi(all));
       if (f < 1 && c.length) d.setData({ type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: c[c.length - 1] } }] });
       else d.setData(empty());
+      if (f >= 1) arcDone[i] = pts;
     });
   }
 
   function reset() {
     timers.forEach(clearTimeout); timers = [];
-    ['gor', 'min'].forEach(function (k) {
-      state[k] = { draw: 0, fill: 0, on: false }; marching[k] = false;
+    arcDone = [];
+    AREAS.forEach(function (k) {
+      state[k] = { fill: 0, on: false }; marching[k] = false;
       map.setPaintProperty('fill-' + k, 'fill-opacity', 0);
       map.setPaintProperty('line-' + k, 'line-dasharray', [1, 0]);
       ['line-', 'glow-'].forEach(function (p) { map.getSource(p + k).setData(empty()); });
@@ -149,11 +159,11 @@
   }
 
   function targetCamera() {
-    var pad = { top: 90, bottom: 90, left: wide() ? Math.min(520, window.innerWidth * 0.36) + 110 : 70, right: wide() ? 240 : 110 };
+    var pad = { top: 80, bottom: 150, left: wide() ? Math.min(520, window.innerWidth * 0.36) + 110 : 70, right: wide() ? 240 : 110 };
     var b = new maplibregl.LngLatBounds(PLACES.gor.pin, PLACES.gor.pin);
-    b.extend(PLACES.min.pin);
+    b.extend(PLACES.min.pin); b.extend(PLACES.nft.pin);
     var cam = map.cameraForBounds(b, { padding: pad, maxZoom: 10.5 });
-    return { center: [cam.center.lng, cam.center.lat + (wide() ? 0.03 : 0.02)], zoom: cam.zoom, pitch: wide() ? 52 : 42, bearing: -18 };
+    return { center: [cam.center.lng, cam.center.lat + (wide() ? -0.005 : 0)], zoom: cam.zoom, pitch: wide() ? 52 : 42, bearing: -18 };
   }
 
   function play() {
@@ -162,27 +172,30 @@
     var cam = targetCamera();
     if (reduce) {
       map.jumpTo(cam);
-      showArea('gor'); showArea('min'); setPin('gor', true); setPin('min', true); showArc();
+      AREAS.forEach(function (k) { showArea(k); setPin(k, true); });
+      showArc(0); showArc(1);
       return;
     }
     map.jumpTo({ center: [49, 41.5], zoom: 3.4, pitch: 35, bearing: -12 });
     later(function () { map.flyTo({ center: cam.center, zoom: cam.zoom, pitch: cam.pitch, bearing: cam.bearing, duration: 5200, curve: 1.5, essential: true }); }, 300);
     later(function () { showArea('gor'); setPin('gor', true); }, 4300);
-    later(showArc, 6200);
-    later(function () { showArea('min'); setPin('min', true); }, 7700);
-    later(function () { map.easeTo({ bearing: cam.bearing + 12, duration: 9000, easing: function (t) { return t; }, essential: true }); }, 9600);
+    later(function () { showArc(0); }, 6200);
+    later(function () { showArea('nft'); setPin('nft', true); }, 7500);
+    later(function () { showArc(1); }, 8600);
+    later(function () { showArea('min'); setPin('min', true); }, 10000);
+    later(function () { map.easeTo({ bearing: cam.bearing + 12, duration: 9000, easing: function (t) { return t; }, essential: true }); }, 11800);
   }
 
   map.once('style.load', function () {
     fetch('assets/areas.geojson').then(function (r) { return r.json(); }).then(function (data) {
       geo = {};
       data.features.forEach(function (f) {
-        var k = f.properties.name === 'Goranboy' ? 'gor' : 'min';
+        var k = NAMES[f.properties.name]; if (!k) return;
         geo[k] = f.geometry; rings[k] = f.geometry.coordinates[0];
       });
-      arcPts = arcPoints(PLACES.gor.pin, PLACES.min.pin, 90);
+      arcPtsList = ARCS.map(function (p) { return arcPoints(PLACES[p[0]].pin, PLACES[p[1]].pin, 90); });
 
-      ['gor', 'min'].forEach(function (k) {
+      AREAS.forEach(function (k) {
         map.addSource('area-' + k, { type: 'geojson', data: { type: 'Feature', properties: {}, geometry: geo[k] } });
         map.addSource('line-' + k, { type: 'geojson', data: empty() });
         map.addSource('glow-' + k, { type: 'geojson', data: empty() });
