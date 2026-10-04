@@ -100,6 +100,11 @@ h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;line-height:1.15}
 .chips li{padding:7px 14px;border-radius:99px;border:1px solid var(--line);background:var(--alt);font-weight:600;font-size:14px}
 .chips li.off{border-style:dashed;color:var(--mut);font-weight:500;background:transparent}
 .chips li.off small{display:block;font-size:11px;font-weight:500}
+.pay-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:0 0 28px;color:var(--mut);font-size:14px}
+.chips li.link-chip{padding:0;border-color:var(--blue)}
+.chips li.link-chip a{display:block;padding:7px 14px;text-decoration:none;color:var(--blue);border-radius:99px}
+.chips li.link-chip a:hover{background:var(--blue);color:#fff}
+@media (prefers-color-scheme: dark){.chips li.link-chip{border-color:#aab0ff}.chips li.link-chip a{color:#aab0ff}.chips li.link-chip a:hover{background:#aab0ff;color:#0d0f24}}
 .pay-note{margin-top:24px;color:var(--mut);font-size:14px}
 .pay-note a{color:var(--blue);font-weight:600}
 @media (prefers-color-scheme: dark){.pay-note a{color:#aab0ff}.pay-card h3 svg{color:#aab0ff}}
