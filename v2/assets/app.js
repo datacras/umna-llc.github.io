@@ -11,24 +11,58 @@
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // ƏHATƏ SİYAHISI. Yeni kənd/qəsəbə/şəhər əlavə etmək üçün bura bir sətir əlavə edin:
-  //   { name: 'Göstəriləcək ad', keys: ['axtarış sözü', 'alternativ yazılış'] }
-  // keys: kiçik hərflə, azərbaycan hərfləri ilə və ya latın əvəzləri ilə yazıla bilər.
+  // ƏHATƏ SİYAHISI
+  //   keys     – şəhər/rayon adları. Ünvanın içində hər yerdə axtarılır.
+  //   villages – kənd/qəsəbə adları. Yalnız TAM söz kimi axtarılır (başqa bölgədəki eyni adlı
+  //              küçə və ya kəndlə qarışmasın deyə). "Azad", "Nizami", "Gülüstan", "Şəfəq",
+  //              "Yenikənd", "Yeni Yol", "Meşəli", "Düzqışlaq", "Qazaxlar", "Baş Qışlaq", "Tap",
+  //              "Goran" kimi ümumi adlar bilərəkdən siyahıda yoxdur: bunlar üçün "Goranboy" yazılmalıdır.
+  // Yeni yer əlavə etmək üçün uyğun siyahıya ad əlavə edin. Məlumat OpenStreetMap-dəndir,
+  // tam olmaya bilər. Əhatəni özünüz yoxlayıb düzəldin.
   var COVERAGE = [
-    { name: 'Goranboy rayonu', keys: ['goranboy', 'dəliməmmədli', 'dalimammadli'] },
-    { name: 'Naftalan', keys: ['naftalan'] },
-    { name: 'Mingəçevir', keys: ['mingəçevir', 'mingecevir'] }
+    { name: 'Goranboy rayonu', keys: ['goranboy', 'dəliməmmədli', 'dalimammadli'], villages: [
+      'Abbasqulular', 'Alpout', 'Ağcakənd', 'Aşağı Ağcakənd', 'Aşağı Ballıqaya', 'Balakürd',
+      'Bağçakürd', 'Boluslu', 'Borsunlu', 'Buzluq', 'Börü', 'Bəşirli', 'Cinli Zeynallı', 'Dəyirmanlar',
+      'Erkeç', 'Eyvazlılar', 'Fəxralı', 'Goranlı', 'Göynüyən', 'Gülməmmədli', 'Gürzallar', 'Hacallı',
+      'Hazırəhmədli', 'Həmənli', 'Kəhrizli', 'Kələk', 'Muzdurlar', 'Mənəşli', 'Məşədiqaralar',
+      'Nadirkənd', 'Nərimanlı', 'Qaradağlı', 'Qaramusalı', 'Qarapirimli', 'Qarasuçu', 'Qarasüleymanlı',
+      'Qaraçinar', 'Qarqucaq', 'Qaxtut', 'Qazanbulaq', 'Qazançı', 'Qurbanzadə', 'Quşçular', 'Qırıqlı',
+      'Qızılhacılı', 'Rus Borisi', 'Rəhimli', 'Safkurt', 'Sarov', 'Sarovlu', 'Səfikürd', 'Səmədabad',
+      'Tap Qaraqoyunlu', 'Tatarlı', 'Todan', 'Todanalı', 'Təklə', 'Veyisli', 'Xan Qərvənd',
+      'Xasadarlı', 'Xoylu', 'Xınalı', 'Yolpaq', 'Yolqulular', 'Yuxarı Ağcakənd', 'Yuxarı Ballıqaya',
+      'Yəhərçi Qazaxlar', 'Zeyvə', 'İrəvanli', 'Şadılı', 'Şahməmmədli', 'Şıxlar', 'Şəfibəyli',
+      'Əhmədabad'
+    ] },
+    { name: 'Naftalan', keys: ['naftalan'], villages: [
+      'Qaşaltı Qaraqoyunlu', 'Qasımbəyli'
+    ] },
+    { name: 'Mingəçevir', keys: ['mingəçevir', 'mingecevir'], villages: [] }
   ];
+  // Bu böyük şəhərlərdən biri yazılıbsa və yuxarıda şəhər/rayon adı yoxdursa, kənd adı sayılmır
+  var OTHER_CITIES = ['bakı', 'baku', 'gəncə', 'sumqayıt', 'şəki', 'lənkəran', 'naxçıvan', 'şirvan', 'xırdalan', 'quba', 'şamaxı', 'yevlax', 'tovuz', 'qazax', 'ağstafa', 'bərdə'];
   function norm(s) {
     return s.toLocaleLowerCase('az').replace(/ı/g, 'i').replace(/ə/g, 'e').replace(/ö/g, 'o')
       .replace(/ü/g, 'u').replace(/ş/g, 's').replace(/ç/g, 'c').replace(/ğ/g, 'g');
   }
-  COVERAGE.forEach(function (c) { c.n = c.keys.map(norm); });
+  function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  // tam söz: əvvəl/sonra hərf və ya rəqəm olmasın
+  function wordRe(s) { return new RegExp('(^|[^a-z0-9])' + esc(norm(s)).replace(/ /g, '\\s+') + '($|[^a-z0-9])'); }
+  COVERAGE.forEach(function (c) {
+    c.n = c.keys.map(norm);
+    c.v = c.villages.map(function (x) { return { name: x, re: wordRe(x) }; });
+  });
+  var otherRe = OTHER_CITIES.map(wordRe);
+
+  // qaytarır: { area: 'Goranboy rayonu', place: 'Qaradağlı' | null } və ya null
   function findArea(text) {
-    var v = norm(text);
-    for (var i = 0; i < COVERAGE.length; i++) {
-      for (var j = 0; j < COVERAGE[i].n.length; j++) if (v.indexOf(COVERAGE[i].n[j]) !== -1) return COVERAGE[i];
-    }
+    var v = norm(text), i, j;
+    for (i = 0; i < COVERAGE.length; i++)
+      for (j = 0; j < COVERAGE[i].n.length; j++)
+        if (v.indexOf(COVERAGE[i].n[j]) !== -1) return { area: COVERAGE[i].name, place: null };
+    if (otherRe.some(function (r) { return r.test(v); })) return null;
+    for (i = 0; i < COVERAGE.length; i++)
+      for (j = 0; j < COVERAGE[i].v.length; j++)
+        if (COVERAGE[i].v[j].re.test(v)) return { area: COVERAGE[i].name, place: COVERAGE[i].v[j].name };
     return null;
   }
 
@@ -50,7 +84,7 @@
     var area = findArea(raw);
     if (addrField) addrField.value = raw;
     if (area) {
-      say('ok', ['✓ ' + area.name + ' əhatə dairəmizdədir. ', link('Nömrənizi yazın, zəng edək →', '#elaqe')]);
+      say('ok', ['✓ ' + (area.place ? area.place + ' (' + area.area + ')' : area.area) + ' əhatə dairəmizdədir. ', link('Nömrənizi yazın, zəng edək →', '#elaqe')]);
     } else {
       showNotify(raw);
     }
