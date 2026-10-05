@@ -42,4 +42,23 @@
       document.getElementById('planField').value = a.getAttribute('data-plan');
     });
   });
+
+  // Zəng sifarişi: səhifədə qalaraq göndər (formsubmit AJAX), alınmasa adi göndərişə qayıt
+  var cf = document.getElementById('callForm'), cr = document.getElementById('callResult');
+  if (cf && window.fetch) {
+    cf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = cf.querySelector('button[type=submit]'), label = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Göndərilir…'; cr.textContent = '';
+      fetch('https://formsubmit.co/ajax/info@umna.az', { method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(cf) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && (d.success === 'true' || d.success === true)) {
+            cf.reset(); cr.textContent = '✓ Təşəkkür edirik! Nömrənizi aldıq, tezliklə sizə zəng edəcəyik.';
+            btn.disabled = false; btn.textContent = label;
+          } else { throw new Error('fail'); }
+        })
+        .catch(function () { cf.submit(); });
+    });
+  }
 })();

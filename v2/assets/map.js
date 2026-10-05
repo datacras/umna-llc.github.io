@@ -158,6 +158,12 @@
     ['arc', 'arc-glow', 'dot'].forEach(function (s) { map.getSource(s).setData(empty()); });
   }
 
+  function updatePinScale() {
+    var ps = Math.max(0.5, Math.min(1, 0.45 + (map.getZoom() - 6.5) * 0.22));
+    el.style.setProperty('--ps', ps.toFixed(3));
+  }
+  map.on('zoom', updatePinScale);
+
   function targetCamera() {
     var pad = { top: 80, bottom: 150, left: wide() ? Math.min(520, window.innerWidth * 0.36) + 110 : 70, right: wide() ? 240 : 110 };
     var b = new maplibregl.LngLatBounds(PLACES.gor.pin, PLACES.gor.pin);
@@ -213,6 +219,7 @@
       });
 
       map.jumpTo(targetCamera());
+      updatePinScale();
       ready = true;
       raf = requestAnimationFrame(tick);
       if (visible && !played) play();

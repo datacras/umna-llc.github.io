@@ -21,7 +21,8 @@
       <a href="#odenis">Ödəniş</a>
       <a href="#ehate">Əhatə</a>
       <a href="#xidmetler">Xidmətlər</a>
-      <a href="../speedtest.html">Sürət testi</a>
+      <a href="speedtest.html">Sürət testi</a>
+      <a href="hesabatlar.html">Hesabatlıq</a>
       <a href="#kabinet">Hesabım</a>
       <a href="#elaqe">Əlaqə</a>
     </nav>
@@ -183,7 +184,7 @@
         </div>
         <div class="card-actions">
           <a class="btn btn-ghost" href="#odenis">Ödəniş yerləri</a>
-          <a class="link" href="../hesabatlar.html">Hesabatlıq →</a>
+          <a class="link" href="hesabatlar.html">Hesabatlıq →</a>
         </div>
       </div>
     </div>
@@ -194,14 +195,14 @@
     <div class="wrap">
       <h2>Qoşulmağa hazırsınız?</h2>
       <p class="sub">Nömrənizi yazın, sizə zəng edək.</p>
-      <form class="call" action="https://formsubmit.co/info@umna.az" method="POST">
+      <form class="call" id="callForm" action="https://formsubmit.co/info@umna.az" method="POST">
         <input type="tel" name="phone" placeholder="+994 __ ___ __ __" required pattern="[0-9+ ]{7,15}" aria-label="Telefon nömrəsi">
         <input type="hidden" name="plan" id="planField" value="">
         <input type="hidden" name="_subject" value="Yeni Qoşulma - Sayt v2">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://umna.az/thanks.html">
         <button class="btn btn-light" type="submit">Zəng sifariş et</button>
       </form>
+      <p class="call-result" id="callResult" role="status" aria-live="polite"></p>
       <p class="contacts">
         <a href="tel:+994706510022">+994 70 651 00 22</a> ·
         <a href="tel:+994706610022">+994 70 661 00 22</a> ·
