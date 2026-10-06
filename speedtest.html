@@ -1,537 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="az">
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>UMNA LLC - Sürət Testi</title>
-      <meta name="description" content="UMNA LLC internet sürətinizi ölçün — yükləmə, yükləmə və ping testləri">
-      <meta name="author" content="UMNA LLC">
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <link rel="stylesheet" href="css/responsive.css">
-      <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-      <meta name="theme-color" content="#ffffff" />
-      <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Sen:400,700,800&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <style>
-         .speedtest-wrap {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
-            padding: 40px 30px 36px;
-            max-width: 680px;
-            margin: 0 auto;
-         }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sürət testi – UMNA</title>
+  <meta name="description" content="İnternet bağlantınızın yükləmə, göndərmə sürətini və gecikmə müddətini ölçün.">
+  <meta name="theme-color" content="#272b91">
+  <link rel="icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/style.css?v=202610061838">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="UMNA – ana səhifə"><img src="assets/logo.png" alt="UMNA Internet provayder" width="109" height="66"></a>
+    <nav class="menu" id="menu" aria-label="Əsas menyu">
+      <a href="index.html#tarifler">Tariflər</a>
+      <a href="index.html#muqayise">Müqayisə</a>
+      <a href="index.html#odenis">Ödəniş</a>
+      <a href="index.html#ehate">Əhatə</a>
+      <a href="index.html#xidmetler">Xidmətlər</a>
+      <a href="speedtest.html" aria-current="page">Sürət testi</a>
+      <a href="hesabatlar.html">Hesabatlıq</a>
+      <a href="index.html#elaqe">Əlaqə</a>
+    </nav>
+    <a class="btn btn-sm" href="index.html#yoxla">Əlçatanlığı yoxla</a>
+    <button class="burger" id="burger" aria-label="Menyu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<main>
+<section class="page-hero">
+  <div class="wrap"><h1>Sürət testi</h1><p class="lead">İnternet bağlantınızın yükləmə, göndərmə sürətini və gecikmə müddətini ölçün.</p></div>
+</section>
 
-         /* Gauge */
-         .gauge-wrap {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            margin: 0 auto 8px;
-         }
-         .gauge-svg {
-            width: 220px;
-            height: 220px;
-            transform: rotate(-90deg);
-         }
-         .gauge-bg {
-            fill: none;
-            stroke: #e9ecef;
-            stroke-width: 14;
-         }
-         .gauge-fill {
-            fill: none;
-            stroke: #1a73e8;
-            stroke-width: 14;
-            stroke-linecap: round;
-            stroke-dasharray: 565;
-            stroke-dashoffset: 565;
-            transition: stroke-dashoffset 0.4s ease, stroke 0.3s;
-         }
-         .gauge-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-         }
-         .gauge-speed {
-            font-size: 42px;
-            font-weight: 800;
-            color: #1a2e5a;
-            line-height: 1;
-            font-family: 'Sen', sans-serif;
-         }
-         .gauge-unit {
-            font-size: 14px;
-            color: #6c757d;
-            font-weight: 600;
-         }
-         .gauge-label {
-            font-size: 13px;
-            color: #888;
-            margin-top: 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-         }
+  <section class="sec">
+    <div class="wrap">
+      <div class="st-card">
+        <div class="gauge">
+          <svg viewBox="0 0 220 220" aria-hidden="true">
+            <circle class="g-bg" cx="110" cy="110" r="90"/>
+            <circle class="g-fill" id="gaugeFill" cx="110" cy="110" r="90"/>
+          </svg>
+          <div class="g-center">
+            <div class="g-speed" id="gaugeSpeed" aria-live="polite">--</div>
+            <div class="g-unit">Mbps</div>
+            <div class="g-label" id="gaugeLabel">hazır</div>
+          </div>
+        </div>
 
-         /* Start button */
-         .btn-start {
-            display: inline-block;
-            padding: 14px 52px;
-            border-radius: 50px;
-            background: #1a73e8;
-            color: #fff;
-            font-size: 17px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            letter-spacing: 0.5px;
-         }
-         .btn-start:hover { background: #1558b0; }
-         .btn-start:active { transform: scale(0.97); }
-         .btn-start:disabled {
-            background: #b0c8f0;
-            cursor: not-allowed;
-         }
+        <button class="btn st-btn" id="startBtn" type="button">Testi başlat</button>
 
-         /* Stat cards */
-         .stat-cards {
-            display: flex;
-            gap: 16px;
-            margin-top: 28px;
-            flex-wrap: wrap;
-         }
-         .stat-card {
-            flex: 1;
-            min-width: 120px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 16px 12px 14px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: border-color 0.3s;
-         }
-         .stat-card.active {
-            border-color: #1a73e8;
-            background: #f0f6ff;
-         }
-         .stat-card.done {
-            border-color: #34a853;
-            background: #f0faf2;
-         }
-         .stat-icon {
-            font-size: 22px;
-            margin-bottom: 6px;
-         }
-         .stat-icon .fa-arrow-down { color: #1a73e8; }
-         .stat-icon .fa-arrow-up   { color: #ea4335; }
-         .stat-icon .fa-wifi       { color: #fbbc04; }
-         .stat-value {
-            font-size: 26px;
-            font-weight: 800;
-            color: #1a2e5a;
-            font-family: 'Sen', sans-serif;
-            line-height: 1;
-         }
-         .stat-unit {
-            font-size: 11px;
-            color: #888;
-            font-weight: 600;
-         }
-         .stat-label {
-            font-size: 12px;
-            color: #6c757d;
-            margin-top: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-         }
+        <div class="st-progress" aria-hidden="true"><div class="st-bar" id="progressFill"></div></div>
+        <p class="st-status" id="statusText" role="status" aria-live="polite"></p>
 
-         /* Progress bar */
-         .progress-wrap {
-            margin-top: 22px;
-         }
-         .progress-bar-custom {
-            height: 6px;
-            background: #e9ecef;
-            border-radius: 6px;
-            overflow: hidden;
-         }
-         .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #1a73e8, #34a853);
-            border-radius: 6px;
-            transition: width 0.3s ease;
-         }
-         .status-text {
-            font-size: 13px;
-            color: #6c757d;
-            margin-top: 8px;
-            min-height: 20px;
-            text-align: center;
-         }
+        <div class="st-stats">
+          <div class="st-stat" id="cardPing"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></i><b id="pingVal">--</b><small>ms</small><span>Ping</span></div>
+          <div class="st-stat" id="cardDown"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></i><b id="downVal">--</b><small>Mbps</small><span>Yükləmə</span></div>
+          <div class="st-stat" id="cardUp"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></i><b id="upVal">--</b><small>Mbps</small><span>Göndərmə</span></div>
+        </div>
 
-         /* Server info */
-         .server-info {
-            font-size: 12px;
-            color: #aaa;
-            margin-top: 18px;
-            padding-top: 16px;
-            border-top: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-         }
-         .server-info span { color: #555; font-weight: 600; }
-      </style>
-   </head>
-   <body>
-      <div class="header_section">
-         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="index.html"><img src="images/umna.png"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Ana Səhifə</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="hosting.html">Əhatə dairəmiz</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="domain.html">Tariflərimiz</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="services.html">Xidmətlərimiz</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="hesabatlar.html">Hesabatlıq</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Əlaqə</a>
-                     </li>
-                  </ul>
-               </div>
-            </nav>
-            <div class="custom_bg">
-               <div class="custom_menu">
-                  <ul>
-                     <li><a href="index.html">Ana Səhifə</a></li>
-                     <li><a href="hosting.html">Əhatə dairəmiz</a></li>
-                     <li><a href="domain.html">Tariflərimiz</a></li>
-                     <li><a href="services.html">Xidmətlərimiz</a></li>
-                     <li><a href="hesabatlar.html">Hesabatlıq</a></li>
-                     <li><a href="contact.html">Əlaqə</a></li>
-                  </ul>
-               </div>
-               <form class="form-inline my-2 my-lg-0">
-                  <div class="search_btn">
-                     <li>
-                        <a href="https://e-complaint.icta.az/" target="_blank">
-                           <i class="fa fa-envelope" aria-hidden="true"></i> E-şikayət
-                        </a>
-                     </li>
-                     <li>
-                        <a href="https://user.umna.az" target="_blank">
-                           <i class="fa fa-envelope" aria-hidden="true"></i> Şəxsi Kabinet
-                        </a>
-                     </li>
-                  </div>
-               </form>
-            </div>
-         </div>
+        <div class="st-server" id="serverInfo" hidden>
+          <div>Test serveri: <b>Cloudflare CDN</b></div>
+          <div>IP: <b id="infoIp">—</b></div>
+          <div>Məkan: <b id="infoCity">—</b></div>
+        </div>
       </div>
+      <p class="pay-note" style="text-align:center">Nəticə cihazınızdan, Wi-Fi və ya kabeldən, eləcə də eyni anda istifadə olunan digər cihazlardan asılı ola bilər. Dəqiq ölçmə üçün kabellə qoşulun və digər yükləmələri dayandırın.</p>
+    </div>
+  </section>
+</main>
 
-      <!-- speedtest section -->
-      <div class="services_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="services_taital">Sürət Testi</h1>
-                  <p class="services_text">İnternet bağlantınızın yükləmə, göndərmə sürətini və gecikmə müddətini ölçün.</p>
-               </div>
-            </div>
-
-            <div class="speedtest-wrap">
-
-               <!-- Gauge -->
-               <div class="gauge-wrap">
-                  <svg class="gauge-svg" viewBox="0 0 220 220">
-                     <circle class="gauge-bg" cx="110" cy="110" r="90"/>
-                     <circle class="gauge-fill" id="gaugeFill" cx="110" cy="110" r="90"/>
-                  </svg>
-                  <div class="gauge-center">
-                     <div class="gauge-speed" id="gaugeSpeed">--</div>
-                     <div class="gauge-unit">Mbps</div>
-                     <div class="gauge-label" id="gaugeLabel">hazır</div>
-                  </div>
-               </div>
-
-               <!-- Start button -->
-               <div class="text-center mt-3">
-                  <button class="btn-start" id="startBtn" onclick="startTest()">
-                     <i class="fa fa-play" style="margin-right:8px;"></i> Testi Başlat
-                  </button>
-               </div>
-
-               <!-- Progress -->
-               <div class="progress-wrap">
-                  <div class="progress-bar-custom">
-                     <div class="progress-bar-fill" id="progressFill"></div>
-                  </div>
-                  <div class="status-text" id="statusText"></div>
-               </div>
-
-               <!-- Stat cards -->
-               <div class="stat-cards">
-                  <div class="stat-card" id="cardPing">
-                     <div class="stat-icon"><i class="fa fa-wifi"></i></div>
-                     <div class="stat-value" id="pingVal">--</div>
-                     <div class="stat-unit">ms</div>
-                     <div class="stat-label">Ping</div>
-                  </div>
-                  <div class="stat-card" id="cardDown">
-                     <div class="stat-icon"><i class="fa fa-arrow-down"></i></div>
-                     <div class="stat-value" id="downVal">--</div>
-                     <div class="stat-unit">Mbps</div>
-                     <div class="stat-label">Yükləmə</div>
-                  </div>
-                  <div class="stat-card" id="cardUp">
-                     <div class="stat-icon"><i class="fa fa-arrow-up"></i></div>
-                     <div class="stat-value" id="upVal">--</div>
-                     <div class="stat-unit">Mbps</div>
-                     <div class="stat-label">Göndərmə</div>
-                  </div>
-               </div>
-
-               <!-- Server info -->
-               <div class="server-info" id="serverInfo" style="display:none;">
-                  <div>Test serveri: <span>Cloudflare CDN</span></div>
-                  <div>IP: <span id="infoIp">—</span></div>
-                  <div>Məkan: <span id="infoCity">—</span></div>
-               </div>
-
-            </div>
-         </div>
-      </div>
-      <!-- speedtest section end -->
-
-      <!-- footer -->
-      <div class="footer_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-4">
-                  <h3 class="footer_text">Faydalı keçidlər</h3>
-                  <div class="footer_menu">
-                     <ul>
-                        <li><a href="index.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Ana Səhifə</a></li>
-                        <li><a href="hosting.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Əhatə dairəmiz</a></li>
-                        <li><a href="domain.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Tariflərimiz</a></li>
-                        <li><a href="services.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Xidmətlərimiz</a></li>
-                        <li><a href="hesabatlar.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Hesabatlıq</a></li>
-                        <li><a href="contact.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Bizimlə əlaqə</a></li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <h3 class="footer_text">Ünvan</h3>
-                  <div class="location_text">
-                     <ul>
-                        <li>
-                           <a href="#">
-                           <span class="padding_left_10"><i class="fa fa-map-marker" aria-hidden="true"></i></span>Goranboy rayonu, Dəliməmmədli şəhəri <br>Naftalan şəhəri H.Əliyev küçəsi 15</a>
-                        </li>
-                        <li>
-                           <a href="tel:+994706510022">
-                              <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>+994 70 651 00 22
-                           </a><br>
-                           <a href="tel:+994706610022">
-                              <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>+994 70 661 00 22
-                           </a>
-                        </li>
-                        <li>
-                           <a href="mailto:info@umna.az">
-                           <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>info@umna.az
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <div class="footer_main">
-                     <h3 class="footer_text">Sosial</h3>
-                     <p class="dummy_text">Bizi sosial şəbəkələrdə izləyin.</p>
-                     <div class="social_icon">
-                        <ul>
-                           <li><a href="https://facebook.com/UMNALLC"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                           <li><a href="https://x.com/UMNALLC"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                           <li><a href="https://instagram.com/UMNALLC"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div class="copyright_section">
-         <div class="container">
-            <p class="copyright_text">2025 All Rights Reserved. Design by <a href="https://adrichal.org">Adrichal</a>.</p>
-         </div>
-      </div>
-
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-
-      <script>
-      const CF_BASE = 'https://speed.cloudflare.com';
-      const GAUGE_CIRCUMFERENCE = 2 * Math.PI * 90; // ~565.5
-
-      function setGauge(mbps, label) {
-         const max = 200;
-         const pct = Math.min(mbps / max, 1);
-         const offset = GAUGE_CIRCUMFERENCE * (1 - pct);
-         const fill = document.getElementById('gaugeFill');
-         fill.style.strokeDashoffset = offset;
-         // colour: blue → green as speed rises
-         const hue = Math.round(220 - pct * 100); // 220=blue → 120=green
-         fill.style.stroke = `hsl(${hue}, 80%, 50%)`;
-         document.getElementById('gaugeSpeed').textContent = mbps > 0 ? mbps.toFixed(1) : '--';
-         document.getElementById('gaugeLabel').textContent = label;
-      }
-
-      function setProgress(pct, text) {
-         document.getElementById('progressFill').style.width = pct + '%';
-         document.getElementById('statusText').textContent = text;
-      }
-
-      function setCard(id, active, done) {
-         const el = document.getElementById(id);
-         el.classList.toggle('active', active);
-         el.classList.toggle('done', done);
-      }
-
-      async function measurePing(samples) {
-         const times = [];
-         for (let i = 0; i < samples; i++) {
-            const t0 = performance.now();
-            await fetch(`${CF_BASE}/__down?bytes=0&_=${Date.now()}`, { cache: 'no-store' });
-            times.push(performance.now() - t0);
-         }
-         times.sort((a, b) => a - b);
-         return times[0]; // best (lowest) latency
-      }
-
-      async function measureDownload() {
-         const sizes = [1e6, 5e6, 25e6]; // 1MB, 5MB, 25MB
-         let totalBits = 0, totalSec = 0;
-         for (const bytes of sizes) {
-            const t0 = performance.now();
-            const res = await fetch(`${CF_BASE}/__down?bytes=${bytes}&_=${Date.now()}`, { cache: 'no-store' });
-            await res.arrayBuffer();
-            const sec = (performance.now() - t0) / 1000;
-            totalBits += bytes * 8;
-            totalSec += sec;
-            const live = (totalBits / totalSec) / 1e6;
-            setGauge(live, 'yükləmə');
-            document.getElementById('downVal').textContent = live.toFixed(1);
-         }
-         return (totalBits / totalSec) / 1e6;
-      }
-
-      async function measureUpload() {
-         const sizes = [1e6, 5e6, 10e6];
-         let totalBits = 0, totalSec = 0;
-         for (const bytes of sizes) {
-            const body = new Uint8Array(bytes);
-            const t0 = performance.now();
-            await fetch(`${CF_BASE}/__up`, {
-               method: 'POST',
-               body,
-               cache: 'no-store'
-            });
-            const sec = (performance.now() - t0) / 1000;
-            totalBits += bytes * 8;
-            totalSec += sec;
-            const live = (totalBits / totalSec) / 1e6;
-            setGauge(live, 'göndərmə');
-            document.getElementById('upVal').textContent = live.toFixed(1);
-         }
-         return (totalBits / totalSec) / 1e6;
-      }
-
-      async function fetchMeta() {
-         try {
-            const res = await fetch(`${CF_BASE}/__down?bytes=0&_=${Date.now()}`, { cache: 'no-store' });
-            const ip   = res.headers.get('cf-meta-ip')   || '—';
-            const city = res.headers.get('cf-meta-city') || '—';
-            document.getElementById('infoIp').textContent   = ip;
-            document.getElementById('infoCity').textContent = city;
-            document.getElementById('serverInfo').style.display = 'flex';
-         } catch(_) {}
-      }
-
-      async function startTest() {
-         const btn = document.getElementById('startBtn');
-         btn.disabled = true;
-         btn.innerHTML = '<i class="fa fa-spinner fa-spin" style="margin-right:8px;"></i> Test gedir...';
-
-         // reset
-         ['pingVal','downVal','upVal'].forEach(id => document.getElementById(id).textContent = '--');
-         ['cardPing','cardDown','cardUp'].forEach(id => setCard(id, false, false));
-         setGauge(0, 'hazırlanır');
-         document.getElementById('serverInfo').style.display = 'none';
-
-         try {
-            // 1. Ping
-            setProgress(5, 'Ping ölçülür...');
-            setCard('cardPing', true, false);
-            const ping = await measurePing(5);
-            document.getElementById('pingVal').textContent = Math.round(ping);
-            setCard('cardPing', false, true);
-            await fetchMeta();
-
-            // 2. Download
-            setProgress(30, 'Yükləmə sürəti ölçülür...');
-            setCard('cardDown', true, false);
-            const down = await measureDownload();
-            document.getElementById('downVal').textContent = down.toFixed(1);
-            setCard('cardDown', false, true);
-
-            // 3. Upload
-            setProgress(70, 'Göndərmə sürəti ölçülür...');
-            setCard('cardUp', true, false);
-            const up = await measureUpload();
-            document.getElementById('upVal').textContent = up.toFixed(1);
-            setCard('cardUp', false, true);
-
-            setProgress(100, 'Test tamamlandı.');
-            setGauge(down, 'yükləmə');
-
-         } catch(e) {
-            setProgress(0, 'Xəta baş verdi. Yenidən cəhd edin.');
-            setGauge(0, 'xəta');
-         }
-
-         btn.disabled = false;
-         btn.innerHTML = '<i class="fa fa-refresh" style="margin-right:8px;"></i> Yenidən Test Et';
-      }
-      </script>
-   </body>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="foot-brand"><img src="assets/logo.png" alt="" width="52" height="31">© <span id="yr">2026</span> UMNA LLC</span>
+    <span>Goranboy rayonu, Dəliməmmədli şəhəri · Naftalan şəhəri, H.Əliyev küçəsi 15 · <a href="tel:+994706510022">+994 70 651 00 22</a> · <a href="mailto:info@umna.az">info@umna.az</a></span>
+  </div>
+</footer>
+<script src="assets/nav.js?v=202610061838"></script>
+<script src="assets/speedtest.js?v=202610061838"></script>
+</body>
 </html>

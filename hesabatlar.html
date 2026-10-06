@@ -1,398 +1,114 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="az">
-   <head>
-      <!-- basic -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <!-- mobile metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-      <!-- site metas -->
-      <title>UMNA LLC - Hesabatlıq</title>
-      <meta name="keywords" content="UMNA LLC, hesabat, vergi hesabatı">
-      <meta name="description" content="UMNA LLC vergi hesabatları">
-      <meta name="author" content="UMNA LLC">
-      <!-- bootstrap css -->
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <!-- style css -->
-      <link rel="stylesheet" type="text/css" href="css/style.css">
-      <!-- Responsive-->
-      <link rel="stylesheet" href="css/responsive.css">
-      <!-- fevicon -->
-      <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
-      <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png" />
-      <link rel="icon" type="image/png" sizes="512x512" href="images/android-chrome-512x512.png" />
-      <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-      <meta name="theme-color" content="#ffffff" />
-      <!-- fonts -->
-      <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Sen:400,700,800&display=swap" rel="stylesheet">
-      <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-      <!-- Tweaks for older IEs-->
-      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-      <style>
-         .report-filter-btn {
-            margin: 0 4px 8px 4px;
-            border-radius: 20px;
-            padding: 6px 22px;
-            font-size: 14px;
-            font-weight: 600;
-            border: 2px solid #1a73e8;
-            color: #1a73e8;
-            background: #fff;
-            cursor: pointer;
-            transition: all 0.2s;
-         }
-         .report-filter-btn.active,
-         .report-filter-btn:hover {
-            background: #1a73e8;
-            color: #fff;
-         }
-         .report-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 24px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-         }
-         .report-table thead tr {
-            background: #1a73e8;
-            color: #fff;
-         }
-         .report-table thead th {
-            padding: 12px 16px;
-            font-weight: 600;
-            text-align: left;
-         }
-         .report-table tbody tr {
-            border-bottom: 1px solid #e9ecef;
-            transition: background 0.15s;
-         }
-         .report-table tbody tr:hover {
-            background: #f0f6ff;
-         }
-         .report-table tbody td {
-            padding: 12px 16px;
-            color: #444;
-            vertical-align: middle;
-         }
-         .badge-vergi {
-            background: #e8f0fe;
-            color: #1a73e8;
-            border-radius: 12px;
-            padding: 3px 12px;
-            font-size: 12px;
-            font-weight: 600;
-         }
-         .badge-illik {
-            background: #fce8e6;
-            color: #d93025;
-            border-radius: 12px;
-            padding: 3px 12px;
-            font-size: 12px;
-            font-weight: 600;
-         }
-         .badge-rubuq {
-            background: #e6f4ea;
-            color: #188038;
-            border-radius: 12px;
-            padding: 3px 12px;
-            font-size: 12px;
-            font-weight: 600;
-         }
-         .pdf-download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 14px;
-            border-radius: 6px;
-            background: #1a73e8;
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: background 0.2s;
-         }
-         .pdf-download-btn:hover {
-            background: #1558b0;
-            color: #fff;
-            text-decoration: none;
-         }
-         .report-section-wrap {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-            padding: 30px;
-            margin-top: 20px;
-         }
-         .report-year-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-         }
-         .report-year-header h4 {
-            font-size: 17px;
-            font-weight: 700;
-            color: #1a73e8;
-            margin: 0;
-         }
-         .no-reports {
-            text-align: center;
-            color: #888;
-            padding: 40px 0;
-            font-size: 15px;
-         }
-      </style>
-   </head>
-   <body>
-      <div class="header_section">
-         <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-               <a class="navbar-brand" href="index.html"><img src="images/umna.png"></a>
-               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-               <span class="navbar-toggler-icon"></span>
-               </button>
-               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav ml-auto">
-                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Ana Səhifə</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="hosting.html">Əhatə dairəmiz</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="domain.html">Tariflərimiz</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="services.html">Xidmətlərimiz</a>
-                     </li>
-                     <li class="nav-item active">
-                        <a class="nav-link" href="hesabatlar.html">Hesabatlıq</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="speedtest.html">Sürət Testi</a>
-                     </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Əlaqə</a>
-                     </li>
-                  </ul>
-                  <form class="form-inline my-2 my-lg-0">
-                  </form>
-               </div>
-            </nav>
-            <div class="custom_bg">
-               <div class="custom_menu">
-                  <ul>
-                     <li><a href="index.html">Ana Səhifə</a></li>
-                     <li><a href="hosting.html">Əhatə dairəmiz</a></li>
-                     <li><a href="domain.html">Tariflərimiz</a></li>
-                     <li><a href="services.html">Xidmətlərimiz</a></li>
-                     <li class="active"><a href="hesabatlar.html">Hesabatlıq</a></li>
-                     <li><a href="contact.html">Əlaqə</a></li>
-                  </ul>
-               </div>
-               <form class="form-inline my-2 my-lg-0">
-                  <div class="search_btn">
-                     <li>
-                        <a href="https://e-complaint.icta.az/" target="_blank">
-                           <i class="fa fa-envelope" aria-hidden="true"></i> E-şikayət
-                        </a>
-                     </li>
-                     <li>
-                        <a href="https://user.umna.az" target="_blank">
-                           <i class="fa fa-envelope" aria-hidden="true"></i> Şəxsi Kabinet
-                        </a>
-                     </li>
-                  </div>
-               </form>
-            </div>
-         </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hesabatlıq – UMNA</title>
+  <meta name="description" content="UMNA LLC-nin vergi hesabatları ictimaiyyətə açıq şəkildə təqdim olunur.">
+  <meta name="theme-color" content="#272b91">
+  <link rel="icon" href="images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="stylesheet" href="assets/style.css?v=202610061838">
+</head>
+<body>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html" aria-label="UMNA – ana səhifə"><img src="assets/logo.png" alt="UMNA Internet provayder" width="109" height="66"></a>
+    <nav class="menu" id="menu" aria-label="Əsas menyu">
+      <a href="index.html#tarifler">Tariflər</a>
+      <a href="index.html#muqayise">Müqayisə</a>
+      <a href="index.html#odenis">Ödəniş</a>
+      <a href="index.html#ehate">Əhatə</a>
+      <a href="index.html#xidmetler">Xidmətlər</a>
+      <a href="speedtest.html">Sürət testi</a>
+      <a href="hesabatlar.html" aria-current="page">Hesabatlıq</a>
+      <a href="index.html#elaqe">Əlaqə</a>
+    </nav>
+    <a class="btn btn-sm" href="index.html#yoxla">Əlçatanlığı yoxla</a>
+    <button class="burger" id="burger" aria-label="Menyu" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+<main>
+<section class="page-hero">
+  <div class="wrap"><h1>Hesabatlıq</h1><p class="lead">UMNA LLC-nin vergi hesabatları ictimaiyyətə açıq şəkildə təqdim olunur. Müvafiq ili seçərək hesabatları yükləyə bilərsiniz.</p></div>
+</section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="İl üzrə süzgəc"><button type="button" class="chip-btn active" data-year="all">Hamısı</button><button type="button" class="chip-btn" data-year="2025">2025</button><button type="button" class="chip-btn" data-year="2024">2024</button></div>
+      <div class="table-wrap rep">
+        <table class="cmp rep-table" id="reportTable">
+          <thead><tr><th>Hesabatın adı</th><th>Tarix</th><th>Növ</th><th>İl</th><th>Yüklə</th></tr></thead>
+          <tbody id="reportBody">
+          <tr data-year="2025">
+            <td data-l="Hesabat"><span class="doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Vergi bəyannaməsi — I rüb 2025</span></td>
+            <td data-l="Tarix">01.04.2025</td>
+            <td data-l="Növ"><span class="badge t-rub">Rüblük</span></td>
+            <td data-l="İl">2025</td>
+            <td data-l="Yüklə"><a class="dl" href="reports/vergi-beyanname-1rubu-2025.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</a></td>
+          </tr>
+          <tr data-year="2024">
+            <td data-l="Hesabat"><span class="doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>İllik vergi hesabatı — 2024</span></td>
+            <td data-l="Tarix">31.03.2024</td>
+            <td data-l="Növ"><span class="badge t-ill">İllik</span></td>
+            <td data-l="İl">2024</td>
+            <td data-l="Yüklə"><a class="dl" href="reports/vergi-hesabat-illik-2024.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</a></td>
+          </tr>
+          <tr data-year="2024">
+            <td data-l="Hesabat"><span class="doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Vergi bəyannaməsi — IV rüb 2024</span></td>
+            <td data-l="Tarix">15.01.2025</td>
+            <td data-l="Növ"><span class="badge t-rub">Rüblük</span></td>
+            <td data-l="İl">2024</td>
+            <td data-l="Yüklə"><a class="dl" href="reports/vergi-beyanname-4rubu-2024.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</a></td>
+          </tr>
+          <tr data-year="2024">
+            <td data-l="Hesabat"><span class="doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Vergi bəyannaməsi — III rüb 2024</span></td>
+            <td data-l="Tarix">15.10.2024</td>
+            <td data-l="Növ"><span class="badge t-rub">Rüblük</span></td>
+            <td data-l="İl">2024</td>
+            <td data-l="Yüklə"><a class="dl" href="reports/vergi-beyanname-3rubu-2024.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</a></td>
+          </tr>
+          <tr data-year="2024">
+            <td data-l="Hesabat"><span class="doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Vergi bəyannaməsi — II rüb 2024</span></td>
+            <td data-l="Tarix">15.07.2024</td>
+            <td data-l="Növ"><span class="badge t-rub">Rüblük</span></td>
+            <td data-l="İl">2024</td>
+            <td data-l="Yüklə"><a class="dl" href="reports/vergi-beyanname-2rubu-2024.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</a></td>
+          </tr>
+          <tr data-year="2024">
+            <td data-l="Hesabat"><span class="doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Vergi bəyannaməsi — I rüb 2024</span></td>
+            <td data-l="Tarix">15.04.2024</td>
+            <td data-l="Növ"><span class="badge t-rub">Rüblük</span></td>
+            <td data-l="İl">2024</td>
+            <td data-l="Yüklə"><a class="dl" href="reports/vergi-beyanname-1rubu-2024.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PDF</a></td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <!-- header section end -->
+      <p class="rep-empty" id="noResults" hidden>Bu il üçün hesabat mövcud deyil.</p>
+    </div>
+  </section>
+</main>
 
-      <!-- reports section start -->
-      <div class="services_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <h1 class="services_taital">Hesabatlıq</h1>
-                  <p class="services_text">UMNA LLC-nin vergi hesabatları ictimaiyyətə açıq şəkildə təqdim olunur. Aşağıdan müvafiq ili seçərək hesabatları yükləyə bilərsiniz.</p>
-               </div>
-            </div>
-
-            <div class="report-section-wrap">
-               <!-- Year filter -->
-               <div class="mb-3">
-                  <button class="report-filter-btn active" onclick="filterYear('all', this)">Hamısı</button>
-                  <button class="report-filter-btn" onclick="filterYear('2025', this)">2025</button>
-                  <button class="report-filter-btn" onclick="filterYear('2024', this)">2024</button>
-               </div>
-
-               <!-- Reports table -->
-               <table class="report-table" id="reportTable">
-                  <thead>
-                     <tr>
-                        <th style="width:40%">Hesabatın adı</th>
-                        <th style="width:15%">Tarix</th>
-                        <th style="width:15%">Növ</th>
-                        <th style="width:15%">İl</th>
-                        <th style="width:15%">Yüklə</th>
-                     </tr>
-                  </thead>
-                  <tbody id="reportBody">
-                     <!-- 2025 -->
-                     <tr data-year="2025">
-                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — I rüb 2025</td>
-                        <td>01.04.2025</td>
-                        <td><span class="badge-rubuq">Rüblük</span></td>
-                        <td>2025</td>
-                        <td><a href="reports/vergi-beyanname-1rubu-2025.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
-                     </tr>
-                     <!-- 2024 -->
-                     <tr data-year="2024">
-                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>İllik vergi hesabatı — 2024</td>
-                        <td>31.03.2024</td>
-                        <td><span class="badge-illik">İllik</span></td>
-                        <td>2024</td>
-                        <td><a href="reports/vergi-hesabat-illik-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
-                     </tr>
-                     <tr data-year="2024">
-                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — IV rüb 2024</td>
-                        <td>15.01.2025</td>
-                        <td><span class="badge-rubuq">Rüblük</span></td>
-                        <td>2024</td>
-                        <td><a href="reports/vergi-beyanname-4rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
-                     </tr>
-                     <tr data-year="2024">
-                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — III rüb 2024</td>
-                        <td>15.10.2024</td>
-                        <td><span class="badge-rubuq">Rüblük</span></td>
-                        <td>2024</td>
-                        <td><a href="reports/vergi-beyanname-3rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
-                     </tr>
-                     <tr data-year="2024">
-                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — II rüb 2024</td>
-                        <td>15.07.2024</td>
-                        <td><span class="badge-rubuq">Rüblük</span></td>
-                        <td>2024</td>
-                        <td><a href="reports/vergi-beyanname-2rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
-                     </tr>
-                     <tr data-year="2024">
-                        <td><i class="fa fa-file-pdf-o" style="color:#d93025;margin-right:8px;"></i>Vergi bəyannaməsi — I rüb 2024</td>
-                        <td>15.04.2024</td>
-                        <td><span class="badge-rubuq">Rüblük</span></td>
-                        <td>2024</td>
-                        <td><a href="reports/vergi-beyanname-1rubu-2024.pdf" class="pdf-download-btn" download><i class="fa fa-download"></i> PDF</a></td>
-                     </tr>
-                  </tbody>
-               </table>
-
-               <div id="noResults" class="no-reports" style="display:none;">
-                  <i class="fa fa-folder-open-o" style="font-size:36px;display:block;margin-bottom:10px;"></i>
-                  Bu il üçün hesabat mövcud deyil.
-               </div>
-            </div>
-
-         </div>
-      </div>
-      <!-- reports section end -->
-
-      <!-- footer section start -->
-      <div class="footer_section layout_padding">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-4">
-                  <h3 class="footer_text">Faydalı keçidlər</h3>
-                  <div class="footer_menu">
-                     <ul>
-                        <li><a href="index.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Ana Səhifə</a></li>
-                        <li><a href="hosting.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Əhatə dairəmiz</a></li>
-                        <li><a href="domain.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Tariflərimiz</a></li>
-                        <li><a href="services.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Xidmətlərimiz</a></li>
-                        <li class="active"><a href="hesabatlar.html"><span class="angle_icon active"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Hesabatlıq</a></li>
-                        <li><a href="contact.html"><span class="angle_icon"><i class="fa fa-arrow-right" aria-hidden="true"></i></span>Bizimlə əlaqə</a></li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <h3 class="footer_text">Ünvan</h3>
-                  <div class="location_text">
-                     <ul>
-                        <li>
-                           <a href="#">
-                           <span class="padding_left_10"><i class="fa fa-map-marker" aria-hidden="true"></i></span>Goranboy rayonu, Dəliməmmədli şəhəri <br>Naftalan şəhəri H.Əliyev küçəsi 15</a>
-                        </li>
-                        <li>
-                           <a href="tel:+994706510022">
-                              <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>+994 70 651 00 22
-                           </a>
-                           <br>
-                           <a href="tel:+994706610022">
-                              <span class="padding_left_10"><i class="fa fa-phone" aria-hidden="true"></i></span>+994 70 661 00 22
-                           </a>
-                        </li>
-                        <li>
-                           <a href="mailto:info@umna.az">
-                           <span class="padding_left_10"><i class="fa fa-envelope" aria-hidden="true"></i></span>info@umna.az
-                           </a>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-sm-4">
-                  <div class="footer_main">
-                     <h3 class="footer_text">Sosial</h3>
-                     <p class="dummy_text">Bizi sosial şəbəkələrdə izləyin.</p>
-                     <div class="social_icon">
-                        <ul>
-                           <li><a href="https://facebook.com/UMNALLC"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                           <li><a href="https://x.com/UMNALLC"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                           <li><a href="https://instagram.com/UMNALLC"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- footer section end -->
-      <!-- copyright section start -->
-      <div class="copyright_section">
-         <div class="container">
-            <p class="copyright_text">2025 All Rights Reserved. Design by <a href="https://adrichal.org">Adrichal</a>.</p>
-         </div>
-      </div>
-      <!-- copyright section end -->
-      <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/popper.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
-      <script src="js/plugin.js"></script>
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
-      <script>
-         function filterYear(year, btn) {
-            document.querySelectorAll('.report-filter-btn').forEach(function(b) {
-               b.classList.remove('active');
-            });
-            btn.classList.add('active');
-
-            var rows = document.querySelectorAll('#reportBody tr');
-            var visible = 0;
-            rows.forEach(function(row) {
-               if (year === 'all' || row.getAttribute('data-year') === year) {
-                  row.style.display = '';
-                  visible++;
-               } else {
-                  row.style.display = 'none';
-               }
-            });
-            document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
-         }
-      </script>
-   </body>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="foot-brand"><img src="assets/logo.png" alt="" width="52" height="31">© <span id="yr">2026</span> UMNA LLC</span>
+    <span>Goranboy rayonu, Dəliməmmədli şəhəri · Naftalan şəhəri, H.Əliyev küçəsi 15 · <a href="tel:+994706510022">+994 70 651 00 22</a> · <a href="mailto:info@umna.az">info@umna.az</a></span>
+  </div>
+</footer>
+<script src="assets/nav.js?v=202610061838"></script>
+<script>
+(function(){
+  var btns=document.querySelectorAll('.chip-btn'),rows=document.querySelectorAll('#reportBody tr'),none=document.getElementById('noResults');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.classList.remove('active')});b.classList.add('active');
+    var y=b.getAttribute('data-year'),n=0;
+    rows.forEach(function(r){var show=y==='all'||r.getAttribute('data-year')===y;r.hidden=!show;if(show)n++});
+    none.hidden=n>0;
+  })});
+})();
+</script>
+</body>
 </html>

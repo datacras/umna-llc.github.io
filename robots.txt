@@ -5,6 +5,7 @@ Disallow:
 # Block specific sections
 Disallow: /admin/
 Disallow: /customer/
+Disallow: /old/
 
 # Sitemap location
-Sitemap: https://www.umna.az/sitemap.xml
+Sitemap: https://umna.az/sitemap.xml
