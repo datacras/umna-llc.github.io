@@ -162,7 +162,10 @@ h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.01em;line-height:1.15}
 .call input{flex:1 1 240px;max-width:340px;min-height:56px;padding:0 20px;border:0;border-radius:14px;font:inherit;font-size:17px;color:#12142b}
 .call .btn{min-height:56px}
 .call-result{min-height:28px;margin-top:16px;font-weight:600;color:#9dffb8}
-.contacts{margin-top:24px;opacity:.9}
+.contacts{list-style:none;padding:0;margin:32px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:20px 64px;opacity:1;text-align:center}
+.contacts li{display:flex;flex-direction:column;align-items:center;gap:2px}
+.contacts li span{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+.contacts li a{font-size:clamp(20px,2.4vw,28px);font-weight:800;letter-spacing:-.01em}
 .contacts a{text-decoration:none}
 
 .foot{padding:24px 0;border-top:1px solid var(--line);color:var(--mut);font-size:14px}
